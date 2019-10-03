@@ -1,2 +1,2 @@
-# mv-ruby-02-enumerate
-Advanced Building Blocks - Enumerables from The Odin Projet
+# mv-ruby-01-bubble
+Bubble sort project in Ruby for Microverse
