@@ -42,7 +42,25 @@ module Enumerable
     my_each { |i| return false if yield(i) }
     true
   end
+
+  def my_count
+    count = 0
+    my_each { |i| count += 1 if yield(i) }
+    count
+  end
+
+  def my_map(&block)
+    result = []
+    my_each { |i| result.push(block.call(i)) }
+    result
+  end
+
+  def my_inject
+    memo = self[0]
+    my_each { |i| memo = yield(memo, i) }
+    memo
+  end
 end
 
-puts %w[art ar ct].none? { |word| word.length >= 3 }
-puts %w[atr ar ct].my_none? { |word| word.length >= 3 }
+ary = Array(1..4)
+puts(ary.my_inject { |sum, n| sum + n })
