@@ -49,21 +49,20 @@ module Enumerable
     count
   end
 
-  def my_map(&block)
+  def my_map(block = nil)
     result = []
-    my_each { |i| result.push(block.call(i)) }
+    if block.nil?
+      my_each { |i| result.push(yield(i)) }
+    else
+      my_each { |i| result.push(block.call(i)) }
+    end
     result
   end
 
-  def my_inject(m?)
-    if m != nil 
-    memo = * || self[0] 
-    array2 = * ? self : self[1..-1]
-    array2.my_each { |n| memo = yield(memo, n) }
-    memo
+  def my_inject
+    nemo = self[0]
+    array2 = self[1..-1]
+    array2.my_each { |n| nemo = yield(nemo, n) }
+    nemo
   end
 end
-
-ary = Array(1..4)
-puts(ary.my_inject { |sum, i| sum * i })
-puts(ary.inject { |sum, i| sum * i })
