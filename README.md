@@ -21,6 +21,7 @@ A solution for [The Odin Project assignment](https://www.theodinproject.com/cour
 - [TOP](https://www.theodinproject.com/)
 - [VS Code](https://code.visualstudio.com/)
 - [Ruby](https://www.ruby-lang.org)
+- [My Coding Partner](https://github.com/ferreirati)
 
 # Contact
 
