@@ -55,12 +55,15 @@ module Enumerable
     result
   end
 
-  def my_inject
-    memo = self[0]
-    my_each { |i| memo = yield(memo, i) }
+  def my_inject(m?)
+    if m != nil 
+    memo = * || self[0] 
+    array2 = * ? self : self[1..-1]
+    array2.my_each { |n| memo = yield(memo, n) }
     memo
   end
 end
 
 ary = Array(1..4)
-puts(ary.my_inject { |sum, n| sum + n })
+puts(ary.my_inject { |sum, i| sum * i })
+puts(ary.inject { |sum, i| sum * i })
