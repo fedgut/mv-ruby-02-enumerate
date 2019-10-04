@@ -27,9 +27,22 @@ module Enumerable
     my_each { |i| result.push(i) if yield(i) }
     result
   end
+
+  def my_all?
+    my_each { |i| return false unless yield(i) }
+    true
+  end
+
+  def my_any?
+    my_each { |i| return true if yield(i) }
+    false
+  end
+
+  def my_none?
+    my_each { |i| return false if yield(i) }
+    true
+  end
 end
 
-[1, 2, 3].my_each { |i| puts i }
-[1, 2, 3].my_each_with_index { |i, x| puts i => x }
-listi = Array.new(1, 2 ,3 ,4 ,5 ,6 , 7)
-puts listi.my_select(&:even?)
+puts %w[art ar ct].none? { |word| word.length >= 3 }
+puts %w[atr ar ct].my_none? { |word| word.length >= 3 }
