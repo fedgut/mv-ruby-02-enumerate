@@ -1,4 +1,4 @@
-# Bubble sort project in Ruby for Microverse
+# Enummerate project in Ruby for Microverse
 
 A solution for [The Odin Project assignment](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks?ref=lnav)
 
