@@ -60,14 +60,9 @@ module Enumerable
   end
 
   def my_inject(init = nil)
-    if init.nil?
-      nemo = self[0]
-      array2 = self[1..-1]
-    else
-      nemo = init
-      array2 = self
-    end
-    array2.my_each { |n| nemo = yield(nemo, n) }
-    nemo
+    array2 = init ? self : self[1..-1]
+    init ||= self[0]
+    array2.my_each { |n| init = yield(init, n) }
+    init
   end
 end
