@@ -17,6 +17,8 @@ module Enumerable
   end
 
   def my_each_with_index
+    return to_enum unless block_given?
+
     i = 0
     x = 0
     while i < length
@@ -27,16 +29,12 @@ module Enumerable
   end
 end
 
-# test each
-# arr = [1, 2, 3, 4, 5]
-# puts(arr.my_each{ |x| x + 2 })
-# puts(arr.each{ |x| x + 2 })
-
-# test each_with_index
-# %w[a b c].each_with_index { |el, i| puts el => i }
 hash = {}
 %w[a b c].each_with_index { |el, i| hash[el] = i }
 puts hash
 myhash = {}
-%w[a b c].each_with_index { |el, i| myhash[el] = i }
+%w[a b c].my_each_with_index { |el, i| myhash[el] = i }
 puts myhash
+
+arr = (1..4).to_a
+puts arr.my_each_with_index
