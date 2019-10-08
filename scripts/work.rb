@@ -27,14 +27,29 @@ module Enumerable
       x = i
     end
   end
+
+  def my_select
+    return to_enum unless block_given?
+
+    result = []
+    my_each { |i| result.push(i) if yield(i) }
+    result
+  end
+
+  def my_inject ()
 end
 
 hash = {}
-%w[a b c].each_with_index { |el, i| hash[el] = i }
-puts hash
-myhash = {}
-%w[a b c].my_each_with_index { |el, i| myhash[el] = i }
-puts myhash
-
 arr = (1..4).to_a
-puts arr.my_each_with_index
+myhash = {}
+
+# %w[a b c].each_with_index { |el, i| hash[el] = i }
+# puts hash
+# %w[a b c].my_each_with_index { |el, i| myhash[el] = i }
+# puts myhash
+
+
+# puts arr.my_each_with_index
+
+# puts arr.my_select
+# puts(arr.my_select(&:even?))
