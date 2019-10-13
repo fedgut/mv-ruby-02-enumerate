@@ -88,12 +88,5 @@ module Enumerable
     result
   end
 
-  def my_inject(init = nil)
-    return to_enum unless block_given?
-
-    array2 = init ? self : self[1..-1]
-    init ||= self[0]
-    array2.to_a.my_each { |n| init = yield(init, n) }
-    init
-  end
+  def my_inject; end
 end

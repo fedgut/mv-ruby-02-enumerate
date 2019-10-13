@@ -89,4 +89,10 @@ RSpec.describe Enumerable do
       expect((1..4).my_map).to be_instance_of(Enumerator)
     end
   end
+
+  describe 'me_inject' do
+    it 'accumulates and returns the result of passing each elem of the enumerator to a block or a symbol ' do
+      expect((5..10).inject { |sum, i| sum + i }).to eql(45)
+    end
+  end
 end
