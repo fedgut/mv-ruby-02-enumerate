@@ -33,4 +33,67 @@ module Enumerable
     my_each { |i| count += 1 if yield(i) }
     count
   end
+
+  def my_all?(pattern = nil)
+    if block_given?
+      my_each { |i| return false unless yield(i) }
+    elsif pattern.nil?
+      my_each { |i| return false unless i }
+    else
+      my_each { |i| return false unless i =~ pattern }
+    end
+    true
+  end
+
+  def my_any?(pattern = nil)
+    if block_given?
+      my_each { |i| return true if yield(i) }
+    elsif pattern
+      my_each { |i| return true if i =~ pattern }
+    else
+      my_each { |i| return true if i }
+    end
+    false
+  end
+
+  def my_none?(pattern = nil)
+    if block_given?
+      my_each { |i| return false if yield(i) }
+    elsif pattern
+      my_each { |i| return false if i =~ pattern }
+    else
+      my_each { |i| return false if i }
+    end
+    true
+  end
+
+  def my_count(arg = nil)
+    count = 0
+    if block_given?
+      my_each { |i| count += 1 if yield(i) }
+      count
+    elsif arg
+      my_each { |i| count += 1 if arg == i }
+    else
+      my_each { |i| count += 1 if i }
+    end
+    count
+  end
+
+  def my_map
+    result = []
+    return to_enum unless block_given?
+
+    to_a.my_each { |i| result.push(yield(i)) }
+    result
+  end
+
+  def my_inject(init = nil)
+    return to_enum unless block_given?
+
+    array2 = init ? self : self[1..-1]
+    init ||= self[0]
+    array2.to_a.my_each { |n| init = yield(init, n) }
+    init
+  end
 end
