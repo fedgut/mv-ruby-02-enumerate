@@ -6,32 +6,23 @@ module Enumerable
   def my_each
     return to_enum unless block_given?
 
-    i = 0
-    while i < length
-      yield(self[i])
-      i += 1
-    end
+    to_a.length.times { |i| yield(to_a[i]) }
     self
   end
 
   def my_each_with_index
-    i = 0
-    x = 0
     return to_enum unless block_given?
 
-    while i < length
-      yield(self[i], x)
-      i += 1
-      x = i
-    end
+    to_a.length.times { |i| yield(to_a[i], i) }
+    self
   end
 
   def my_select
     return to_enum unless block_given?
 
-    count = 0
-    my_each { |i| count += 1 if yield(i) }
-    count
+    arr = []
+    my_each { |i| arr.push(i) if yield(i) }
+    arr
   end
 
   def my_all?(pattern = nil)
