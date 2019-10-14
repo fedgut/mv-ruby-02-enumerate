@@ -88,5 +88,5 @@ module Enumerable
     result
   end
 
-  def my_inject; end
+  def my_inject(*args); end
 end
