@@ -92,7 +92,7 @@ RSpec.describe Enumerable do
 
   describe 'my_inject' do
     it 'accumulates and returns the result of passing each elem of the enumerator to a block or a symbol ' do
-      expect((5..10).inject { |sum, i| sum + i }).to eql(45)
+      expect((5..10).my_inject { |sum, i| sum + i }).to eql(45)
     end
   end
 end

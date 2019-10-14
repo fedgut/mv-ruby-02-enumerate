@@ -88,5 +88,25 @@ module Enumerable
     result
   end
 
-  def my_inject(*args); end
+  def my_inject(*args)
+    init, symbol = param_identity(*args)
+
+    array = init ? to_a : to_a[1..-1]
+    init ||= to_a[0]
+    if block_given?
+      array.my_each { |elem| init = yield(init, elem) }
+    elsif symbol
+      array.my_each { |elem| init = init.send(symbol, elem) }
+    end
+    init
+  end
+
+  def param_identity(*args)
+    init, symbol = nil
+    args.my_each do |arg|
+      init = arg if arg.is_a? Numeric
+      symbol = arg unless arg.is_a? Numeric
+    end
+    [init, symbol]
+  end
 end
