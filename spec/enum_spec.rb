@@ -24,7 +24,7 @@ RSpec.describe Enumerable do
     end
 
     it 'Iterate on range' do
-      expect(range.each { |i| i + 1 }).to eql(range)
+      expect(range.each {}).to eql(range)
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Enumerable do
     it 'Iterate on arrays' do
       hash = {}
       ar2.my_each_with_index do |item, index|
-        hash[item] = index 
+        hash[item] = index
       end
       expect(hash).to eql('ant' => 0, 'bear' => 1, 'cat' => 2)
     end
@@ -40,14 +40,14 @@ RSpec.describe Enumerable do
     it 'Iterate on ranges' do
       hash = {}
       range.my_each_with_index do |item, index|
-        hash[item] = index 
+        hash[item] = index
       end
       expect(hash).to eql(1 => 0, 2 => 1, 3 => 2)
     end
 
     it 'Handles empty arr' do
       expect(empty.my_each_with_index { |i| i + 1 }).to eql([])
-    end 
+    end
 
     it 'Returns Enumerator if no block is given' do
       expect(empty.my_each_with_index).to be_an_instance_of(Enumerator)
@@ -55,8 +55,20 @@ RSpec.describe Enumerable do
   end
 
   describe '#my_select' do
-    it 'Returns an array containing all elements of enum for which the given block returns a true value.' do
+    it 'Iterate and select from Array.' do
       expect(ar.my_select(&:even?)).to eql([2])
+    end
+
+    it 'Iterate and select from Range' do
+      expect(range.my_select(&:even?)).to eql([2])
+    end
+
+    it 'Handle Empty Array' do
+      expect(empty.my_select(&:even?)).to eql([])
+    end
+
+    it 'Returns enum if no block is given' do
+      expect(empty.my_select).to be_an_instance_of(Enumerator)
     end
   end
 
