@@ -27,35 +27,40 @@ module Enumerable
 
   def my_all?(pattern = nil)
     if block_given?
-      my_each { |i| return false unless yield(i) }
-    elsif pattern.nil?
-      my_each { |i| return false unless i }
+      my_each { |elem| return false unless yield(elem) }
+    elsif pattern
+      my_each { |elem| return false unless verify?(elem, pattern) }
     else
-      my_each { |i| return false unless i =~ pattern }
+      my_each { |elem| return false unless elem }
     end
     true
   end
 
   def my_any?(pattern = nil)
     if block_given?
-      my_each { |i| return true if yield(i) }
+      my_each { |elem| return true if yield(elem) }
     elsif pattern
-      my_each { |i| return true if i =~ pattern }
+      my_each { |elem| return true if verify?(elem, pattern) }
     else
-      my_each { |i| return true if i }
+      my_each { |elem| return true if elem }
     end
     false
   end
 
   def my_none?(pattern = nil)
     if block_given?
-      my_each { |i| return false if yield(i) }
+      my_each { |elem| return false if yield(elem) }
     elsif pattern
-      my_each { |i| return false if i =~ pattern }
+      my_each { |elem| return false if verify?(elem, pattern) }
     else
-      my_each { |i| return false if i }
+      my_each { |elem| return false if elem }
     end
     true
+  end
+
+  def verify?(elem, pattern)
+    (pattern.is_a?(Class) && elem.is_a?(pattern)) ||
+      (pattern.is_a?(Regexp) && elem =~ pattern)
   end
 
   def my_count(arg = nil)

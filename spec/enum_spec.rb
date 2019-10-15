@@ -97,6 +97,10 @@ RSpec.describe Enumerable do
     it 'Return false if any elems in arr  doesnt fulfill condition' do
       expect(ar2.my_all? { |word| word.length < 4 }).to eql(false)
     end
+
+    it 'Return true if all elems in arr are same class' do
+      expect(ar.my_all?(Numeric)).to eql(true)
+    end
   end
 
   describe 'my_any?' do
