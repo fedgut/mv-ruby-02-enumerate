@@ -59,7 +59,8 @@ module Enumerable
   end
 
   def verify?(elem, pattern)
-    (pattern.is_a?(Class) && elem.is_a?(pattern)) ||
+    (elem.respond_to?(:eql?) && elem.eql?(pattern)) ||
+      (pattern.is_a?(Class) && elem.is_a?(pattern)) ||
       (pattern.is_a?(Regexp) && elem =~ pattern)
   end
 
